@@ -123,16 +123,16 @@ fn score_english_string(string: &str) -> f32 {
 	score
 }
 
-pub fn find_best_english_string(candidates: Vec<String>) -> Option<(String,f32)> {
+pub fn find_best_english_string(candidates: Vec<String>) -> Option<(String,f32,u8)> {
 	let mut min_score = std::f32::INFINITY;
-	let mut best_guess: Option<(String,f32)> = None;
-	for candidate in candidates{
+	let mut best_guess: Option<(String,f32,u8)> = None;
+	for (ix,candidate) in candidates.iter().enumerate(){
 		let score = score_english_string(&candidate);
 		//println!("{:?} {:?}",score,candidate );
 		if score < min_score{
 			//println!("{:?} {:?}",score,candidate );
 			min_score = score;
-			best_guess = Some((candidate,score));
+			best_guess = Some((candidate.to_string(),score,ix as u8));
 		}
 	}
 	best_guess
